@@ -39,3 +39,7 @@ new_clause.append(clause[-2])
 
 print(clause[-1])
 print(clause[-2])
+
+
+for i in range(3,5,1):
+    print("hola" + str(i))

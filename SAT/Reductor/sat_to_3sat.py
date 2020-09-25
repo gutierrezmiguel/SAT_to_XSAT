@@ -2,6 +2,7 @@ from leer_archivo import read_file
 
 def sat_to_3sat():
     ALL_PROBLEMS = read_file()
+    FINAL_ANSWER = []
     ALL_ANSWERS= [] #this is the return of the program and its all the problems in 3sat form
     for problem in ALL_PROBLEMS:
         number_of_variables = 0 #numero de variables que contiene el problema , este es dictado por la tercer variable del primer arreglo del "problem" 
@@ -41,6 +42,7 @@ def sat_to_3sat():
                 answer.append(new_clause)
                 #seteo de variables para la siguiente iteracion
                 new_variable += 2 #cuando la clausula solo tiene una variable abremos creado 2 variables mas y debemos sumarlas para no repetirlas
+                number_of_clauses += 3 #la clausula padre ya estaba sumada en el numero de clausulas entonces no se cuenta y las otras 3 se suman
                 continue
             if variables_in_clause == 2:
                 #primer clausula con la variable
@@ -53,6 +55,7 @@ def sat_to_3sat():
                 answer.append(new_clause)
                 #seteo de variables para la proxima interaccion
                 new_variable += 1 #aumentamos una variable
+                number_of_clauses += 1 #la clausula padre ya estaba contada y solo sumamos una
                 continue
             if variables_in_clause == 3:
                 new_clause = clause.copy()
@@ -66,11 +69,13 @@ def sat_to_3sat():
                 new_clause.append(clause[1])
                 new_clause.append(str(new_variable))
                 answer.append(new_clause)
+                number_of_clauses += 1 #primera clausula creada
                 #concatenacion
                 for i in range(2,variables_in_clause-1):
                     new_clause = []
                     new_clause.append(str(new_variable * -1))
                     new_clause.append(clause[i])
+                    number_of_clauses += 1 #todas las clausulas que nacen de las variables que se encuentras en el medio
                     new_variable+=1
                     new_clause.append(str(new_variable))
                     answer.append(new_clause)
@@ -78,14 +83,16 @@ def sat_to_3sat():
                 new_clause.append(str(new_variable * -1))
                 new_clause.append(clause[-1])
                 new_clause.append(clause[-2])
-                
+                number_of_clauses += 1 #la clausula que cierra
+                #reset variables
                 answer.append(new_clause)
-                print(variables_in_clause)
-                print (clause[-1])
+                new_variable += 1
                 continue
-        #Añadimos la respuesta de el problem a ALL_ANSWER
+        #Añadimos la solucion de sat a un arreglo FINALANSWER que contiene 3 arreglos el primero es la reduccion de sat a 3sat el segundo contiene un numero de variables y el tercero un numero de clausulas
+        
+        #quitamos la ultima variable extra que se creo pa no contar 1 de mas siempre
+        new_variable -= 1
+        p_clause = [new_variable,number_of_clauses]
+        answer.append(p_clause)
         ALL_ANSWERS.append(answer)
-    print(ALL_ANSWERS)
     return ALL_ANSWERS
-
-sat_to_3sat()

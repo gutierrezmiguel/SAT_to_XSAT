@@ -26,7 +26,4 @@ def read_file():
                 continue
             if problem:
                 problem.append(line[:-3].split(" "))
-    print (ALL_PROBLEMS)
     return ALL_PROBLEMS
-
-read_file()
