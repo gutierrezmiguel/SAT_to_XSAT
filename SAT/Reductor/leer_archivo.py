@@ -27,3 +27,5 @@ def read_file():
             if problem:
                 problem.append(line[:-3].split(" "))
     return ALL_PROBLEMS
+
+read_file()

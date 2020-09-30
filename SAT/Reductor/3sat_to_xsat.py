@@ -1,4 +1,5 @@
 from sat_to_3sat import sat_to_3sat
+from dimacs_writer import sat_to_dimacs_format
 
 def xsat_to_x1sat(SATPROBLEMS): #coge losproblemas en k-sat y los pasa a k+1-sat
     sat_problems = SATPROBLEMS
@@ -27,24 +28,23 @@ def xsat_to_x1sat(SATPROBLEMS): #coge losproblemas en k-sat y los pasa a k+1-sat
         p_clause = [new_variable,number_of_clauses]
         answer.append(p_clause)
         ALL_ANSWERS.append(answer)
-    print(ALL_ANSWERS)
     return ALL_ANSWERS
 
 
-
-def loop_to_ksat(ksat):
+def loop_to_ksat():
+    k = input("Digite el numero X al que quieres reducir las instancias SAT, sat->Xsat: ")
+    ksat = int(k)
     ksat_answer = sat_to_3sat()
     if ksat == 3:
-        print(ksat_answer)
-        return ksat_answer
+        ksat_answer = ksat_answer
     if ksat > 3:
         for loop in range(3,ksat,1):
             ksat_answer = xsat_to_x1sat(ksat_answer)
-    print(ksat_answer)
+    sat_to_dimacs_format(ksat_answer)    
     return ksat_answer
 
 
-loop_to_ksat(5)
+loop_to_ksat()
 
 
 
