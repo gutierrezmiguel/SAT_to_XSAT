@@ -1,5 +1,6 @@
 from sat_to_3sat import sat_to_3sat
 from dimacs_writer import sat_to_dimacs_format
+import sys
 
 def xsat_to_x1sat(SATPROBLEMS): #coge losproblemas en k-sat y los pasa a k+1-sat
     sat_problems = SATPROBLEMS
@@ -31,8 +32,7 @@ def xsat_to_x1sat(SATPROBLEMS): #coge losproblemas en k-sat y los pasa a k+1-sat
     return ALL_ANSWERS
 
 
-def loop_to_ksat():
-    k = input("Digite el numero X al que quieres reducir las instancias SAT, sat->Xsat: ")
+def loop_to_ksat(k):
     ksat = int(k)
     ksat_answer = sat_to_3sat()
     if ksat == 3:
@@ -43,8 +43,11 @@ def loop_to_ksat():
     sat_to_dimacs_format(ksat_answer)    
     return ksat_answer
 
+x = str(sys.argv[1])
+print(x)
+x = int(x)
 
-loop_to_ksat()
+loop_to_ksat(x)
 
 
 

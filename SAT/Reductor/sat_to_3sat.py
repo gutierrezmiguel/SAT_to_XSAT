@@ -12,8 +12,8 @@ def sat_to_3sat():
         for index,clause in enumerate(problem):
             variables_in_clause = len(clause)
             if clause[0] == "p":
-                number_of_clauses = int(clause[2])
-                number_of_variables = int(clause[3])
+                number_of_clauses = int(clause[3])
+                number_of_variables = int(clause[2])
                 new_variable = number_of_variables + 1
                 continue
             if variables_in_clause == 1:
@@ -71,7 +71,7 @@ def sat_to_3sat():
                 answer.append(new_clause)
                 number_of_clauses += 1 #primera clausula creada
                 #concatenacion
-                for i in range(2,variables_in_clause-1):
+                for i in range(2,variables_in_clause-2):
                     new_clause = []
                     new_clause.append(str(new_variable * -1))
                     new_clause.append(clause[i])
@@ -81,8 +81,8 @@ def sat_to_3sat():
                     answer.append(new_clause)
                 new_clause = []
                 new_clause.append(str(new_variable * -1))
-                new_clause.append(clause[-1])
                 new_clause.append(clause[-2])
+                new_clause.append(clause[-1])
                 number_of_clauses += 1 #la clausula que cierra
                 #reset variables
                 answer.append(new_clause)
@@ -96,3 +96,5 @@ def sat_to_3sat():
         answer.append(p_clause)
         ALL_ANSWERS.append(answer)
     return ALL_ANSWERS
+
+sat_to_3sat()
